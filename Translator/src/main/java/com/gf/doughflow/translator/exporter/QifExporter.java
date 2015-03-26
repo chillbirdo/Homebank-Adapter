@@ -1,6 +1,7 @@
 package com.gf.doughflow.translator.exporter;
 
 import com.gf.doughflow.translator.model.Transaction;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,7 +9,8 @@ public class QifExporter implements IExporter {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private final String HEADER = "!Type:Bank";
-
+    private final DecimalFormat df = new DecimalFormat("##.##");
+    
     @Override
     public String createHeader() {
         return HEADER;
@@ -36,7 +38,7 @@ public class QifExporter implements IExporter {
     }
 
     private String convertValue(Double value) {
-        return "T" + value.toString();
+        return "T" + df.format(value);
     }
 
     private String convertDate(Date d) {

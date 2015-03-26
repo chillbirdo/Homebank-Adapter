@@ -1,4 +1,4 @@
-package com.gf.doughflow.translator.run;
+package com.gf.doughflow.run;
 
 import com.gf.doughflow.translator.exporter.FileExporter;
 import com.gf.doughflow.translator.exporter.QifExporter;
@@ -10,13 +10,17 @@ import com.gf.doughflow.translator.model.Transaction;
 import java.io.File;
 import java.util.List;
 
-public class Strandalone {
+public class Csv2Qif {
 
     
     public static void main(String a[]){
         
-        final String INPUTFILENAME = "/easybank.csv";
-        final String OUTPUTFILENAME = "/output.qif";
+//        final String INPUTFILENAME = "/home/gilbert/temp/giro.csv";
+//        final String OUTPUTFILENAME = "/home/gilbert/temp/giro.qif";
+        final String INPUTFILENAME = "/home/gilbert/temp/sparkonto.csv";
+        final String OUTPUTFILENAME = "/home/gilbert/temp/sparkonto.qif";
+//        final String INPUTFILENAME = "/home/gilbert/temp/kreditkarte.csv";
+//        final String OUTPUTFILENAME = "/home/gilbert/temp/kreditkarte.qif";
         
         File inputfile = new File(INPUTFILENAME);
         Account account = new Account(1, "easybank-giro", Currency.EUR);

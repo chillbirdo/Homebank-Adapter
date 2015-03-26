@@ -4,11 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Logger;
 import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Transaction;
+import java.text.DecimalFormat;
 
 public class EasyBankImporter implements IImporter {
 
-    private final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
     private final Account account;
     
@@ -23,10 +22,18 @@ public class EasyBankImporter implements IImporter {
         }
         Transaction t = new Transaction();
         t.setAccount(this.account);
-        t.setDescription(recordSplit[1]);
+        t.setDescription(convertDescription(recordSplit[1]));
         t.setValue(convertToDouble(recordSplit[4]));
         t.setDate(sdf.parse(recordSplit[3]));
         return t;
+    }
+    
+    private String convertDescription(String description){
+        String ret = description;
+        while( ret.contains("  ")){
+            ret = ret.replaceAll("  ", " ");
+        }
+        return ret;
     }
     
     private Double convertToDouble(String ds){
