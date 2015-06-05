@@ -6,9 +6,17 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-public class FileExporter {
+public class FileCreator {
 
-    public static void exportFile(List<Transaction> transactions, IExporter exporter, String filename) {
+    private final IExporter exporter;
+    private final List<Transaction> transactions;
+    
+    public FileCreator( IExporter exporter, List<Transaction> transactions){
+        this.exporter = exporter;
+        this.transactions = transactions;
+    }
+    
+    public void exportFile(String filename) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new OutputStreamWriter(

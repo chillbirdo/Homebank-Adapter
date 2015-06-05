@@ -1,6 +1,6 @@
 package com.gf.doughflow.run;
 
-import com.gf.doughflow.translator.exporter.FileExporter;
+import com.gf.doughflow.translator.exporter.FileCreator;
 import com.gf.doughflow.translator.exporter.QifExporter;
 import com.gf.doughflow.translator.importer.EasyBankImporter;
 import com.gf.doughflow.translator.importer.FileImporter;
@@ -17,8 +17,8 @@ public class Csv2Qif {
         
 //        final String INPUTFILENAME = "/home/gilbert/temp/giro.csv";
 //        final String OUTPUTFILENAME = "/home/gilbert/temp/giro.qif";
-        final String INPUTFILENAME = "/home/gilbert/temp/sparkonto.csv";
-        final String OUTPUTFILENAME = "/home/gilbert/temp/sparkonto.qif";
+        final String INPUTFILENAME = "/home/gilbert/Desktop/EASYBANK_Umsatzliste_20150403_2148.csv";
+        final String OUTPUTFILENAME = "/home/gilbert/Desktop/easy.qif";
 //        final String INPUTFILENAME = "/home/gilbert/temp/kreditkarte.csv";
 //        final String OUTPUTFILENAME = "/home/gilbert/temp/kreditkarte.qif";
         
@@ -27,6 +27,7 @@ public class Csv2Qif {
         EasyBankImporter ebi = new EasyBankImporter(account);
         List<Transaction> transactions = FileImporter.importRecordPerLine(ebi, inputfile);
         
-        FileExporter.exportFile(transactions, new QifExporter(), OUTPUTFILENAME);
+        FileCreator fc = new FileCreator(new QifExporter(), transactions);
+        fc.exportFile(OUTPUTFILENAME);
     }
 }

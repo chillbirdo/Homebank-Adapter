@@ -1,14 +1,14 @@
 package com.gf.doughflow.workspace;
 
-import com.gf.doughflow.translator.exporter.FileExporter;
+import com.gf.doughflow.translator.exporter.FileCreator;
 import com.gf.doughflow.translator.exporter.XhbExporter;
 import com.gf.doughflow.translator.model.Account;
-import com.gf.doughflow.translator.model.Currency;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
-import sun.java2d.pipe.hw.AccelDeviceEventListener;
 
 public class WorkSpace {
 
@@ -27,20 +27,24 @@ public class WorkSpace {
     private final File importDir;
     private final File tempDir;
 
-    public WorkSpace(String wd) {
+    private final Map<String, Account> accounts;
+    
+    public WorkSpace(String wd, Map<String,Account> accounts) {
+        this.accounts = accounts;
         this.workDir = checkExistsAndCreateDir(wd);
         this.actualDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_ACTUAL);
         this.actualFile = checkExistsAndCreateActualFile(actualDir.getAbsolutePath() + "/" + FILE_ACTUAL);
         this.backupDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_BACKUP);
         this.importDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_IMPORT);
         this.tempDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_TEMP);
-
+        System.out.println("Working on workspace at " + wd);
     }
 
     private File checkExistsAndCreateActualFile(String filePath) {
         File actual = new File(filePath);
         if (!actual.exists()) {
-            FileExporter.exportFile(new ArrayList(), createInitializingExporter(), filePath);
+            FileCreator fc = new FileCreator(createInitializingExporter(), new ArrayList());
+            fc.exportFile(filePath);
             System.out.println("created initial xhb file: '" + filePath + "'.");            
         } else if (!actual.isFile()) {
             throw new RuntimeException("File '" + actual.getAbsolutePath() + "' is not a file!");
@@ -50,12 +54,7 @@ public class WorkSpace {
 
     private XhbExporter createInitializingExporter() {
         XhbExporter xhbExporter = new XhbExporter();
-        List<Account> accounts = new ArrayList<Account>(2);
-        Account easygiro = new Account(1, "easy giro", Currency.EUR);
-        Account easyspar = new Account(2, "easy spar", Currency.EUR);
-        accounts.add(easygiro);
-        accounts.add(easyspar);
-        xhbExporter.setAccounts(accounts);
+        xhbExporter.setAccounts(accounts.values());
         xhbExporter.setCategories(new ArrayList());
         return xhbExporter;
     }
@@ -96,6 +95,4 @@ public class WorkSpace {
     public File getTempDir() {
         return tempDir;
     }
-    
-    
 }

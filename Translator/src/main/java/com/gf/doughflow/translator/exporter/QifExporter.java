@@ -18,10 +18,10 @@ public class QifExporter implements IExporter {
 
     @Override
     public String export(Transaction transaction) {
-        return new String().concat(convertDate(transaction.getDate()) + "\n")
-                .concat(convertValue(transaction.getValue()) + "\n")
-                .concat(convertDescription(transaction.getDescription()) + "\n")
-                .concat("^" + "\n");
+        return new String().concat(convertDate(transaction.getDate()) + System.lineSeparator())
+                .concat(convertValue(transaction.getValue()) + System.lineSeparator())
+                .concat(convertDescription(transaction.getDescription()) + System.lineSeparator())
+                .concat("^" + System.lineSeparator());
     }
 
     @Override

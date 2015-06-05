@@ -33,7 +33,11 @@ public class EasyBankImporter implements IImporter {
         while( ret.contains("  ")){
             ret = ret.replaceAll("  ", " ");
         }
-        return ret;
+        return replaceGermanLetters(ret);
+    }
+    
+    private String replaceGermanLetters(String description) {
+        return description.toLowerCase().replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue").replaceAll("ß", "ss");
     }
     
     private Double convertToDouble(String ds){
