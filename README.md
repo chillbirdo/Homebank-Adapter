@@ -18,4 +18,4 @@ Feel free to contribute your bank by simply implementing the IImporter interface
 
 ## Download:
 
-- Linux Mint binary: http://gilber.vs120026.hl-users.com/files/HomebankAdapter.zip 
+- Linux binary: http://gilber.vs120026.hl-users.com/files/HomebankAdapter.zip 
