@@ -15,3 +15,7 @@ Feel free to contribute your bank by simply implementing the IImporter interface
 - simply download the data file from easybank and start Homebank-Adapter. It will automatically import new records and store the processed file in a "processed" folder. E.g.: for your easybank giro account, just download the .csv file into the direcory [workspace]/import/easy_giro and start HomeBank-Adapter.
 - a "workspace" provides you a definite directory structure and will continuously create backups of your actual .xhb file for safety.
 - supported banks: easybank.at
+
+## Download:
+
+- Binary Linux: http://gilber.vs120026.hl-users.com/files/HomebankAdapter.zip 
