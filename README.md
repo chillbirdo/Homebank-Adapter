@@ -9,3 +9,4 @@ Feel free to contribute your bank by simply implementing the IImporter interface
 
 - simply download the data file from easybank and start Homebank-Adapter. It will automatically import new records and store the processed file in a "processed" folder.
 - a "workspace" provides you a definite directory structure and will continuously create backups of your actual .xhb file for safety.
+- supported banks: easybank.at
