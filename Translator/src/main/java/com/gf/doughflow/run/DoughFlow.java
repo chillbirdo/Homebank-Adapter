@@ -1,44 +1,57 @@
 package com.gf.doughflow.run;
 
-import com.gf.doughflow.translator.model.Account;
-import com.gf.doughflow.translator.model.Currency;
+import com.gf.doughflow.swing.UIWorkingDirChooser;
+import com.gf.doughflow.workspace.DFProperties;
 import com.gf.doughflow.workspace.WorkSpace;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 public class DoughFlow {
 
-    public static void main(String args[]) throws IOException, InterruptedException {
+    private final long FILELISTENER_DELAY_MS = 2000;
+    private final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-        String workDir = ".";
+    public void start(String propFilePath) {
+
+        DFProperties prop = new DFProperties(propFilePath);
+        UIWorkingDirChooser wdc = new UIWorkingDirChooser(prop.getDefaultWorkDir());
+        prop.setAndWriteDefaultWorkDir(wdc.getWorkDir());
+        WorkSpace ws = new WorkSpace(wdc.getWorkDir());
+        ws.importData();
+
+        try {
+            //start homebank
+            Process process = new ProcessBuilder("homebank",
+                    ws.getActualFile().getAbsolutePath()).start();
+
+            //make local backups
+            long lastmodOld = ws.getActualFile().lastModified();
+            while (process.isAlive()) {
+                Thread.sleep(FILELISTENER_DELAY_MS);
+                long lastmod = ws.getActualFile().lastModified();
+                if (lastmod > lastmodOld) {
+                    ws.createBackup(null);
+                    lastmodOld = lastmod;
+                }
+            }
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+        } catch (InterruptedException e) {
+            logger.severe(e.getMessage());
+        } finally {
+            wdc.close();
+        }
+    }
+
+    public static void main(String args[]) {
+        String propFile = "./doughflow.properties";
         if (args.length > 0) {
-            workDir = args[0];
+            propFile = args[0];
         }
-        Map<String, Account> accounts = new TreeMap<String,Account>();
-        accounts.put("1", new Account(1, "easy giro", Currency.EUR));
-        accounts.put("2", new Account(2, "easy spar", Currency.EUR));        
-        WorkSpace ws = new WorkSpace(workDir, accounts);
-        
-        //start homebank
-        Process process = new ProcessBuilder("homebank",
-                ws.getActualFile().getAbsolutePath()).start();
-
-        //make local copies
-        long lastmodOld = ws.getActualFile().lastModified();
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmssSSS");
-        while(process.isAlive()){
-            Thread.sleep(2000l);
-            long lastmod = ws.getActualFile().lastModified();
-            if( lastmod > lastmodOld){
-                File destFile = new File(ws.getBackupDir() + "/backup.xhb_" + sdf.format(new Date()));
-                FileUtils.copyFile(ws.getActualFile(), destFile);
-                lastmodOld = lastmod;
-            } 
-        }
+        new DoughFlow().start(propFile);
     }
 }

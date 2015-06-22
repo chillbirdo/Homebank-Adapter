@@ -2,6 +2,7 @@ package com.gf.doughflow.translator.exporter;
 
 import com.gf.doughflow.translator.model.Transaction;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -16,11 +17,11 @@ public class FileCreator {
         this.transactions = transactions;
     }
     
-    public void exportFile(String filename) {
+    public void exportFile(File file) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(filename), "UTF-8"));
+                    new FileOutputStream(file), "UTF-8"));
             String header = exporter.createHeader();
             if (header != null) {
                 writer.write(header);

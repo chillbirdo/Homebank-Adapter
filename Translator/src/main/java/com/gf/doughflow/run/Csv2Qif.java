@@ -23,11 +23,10 @@ public class Csv2Qif {
 //        final String OUTPUTFILENAME = "/home/gilbert/temp/kreditkarte.qif";
         
         File inputfile = new File(INPUTFILENAME);
-        Account account = new Account(1, "easybank-giro", Currency.EUR);
-        EasyBankImporter ebi = new EasyBankImporter(account);
-        List<Transaction> transactions = FileImporter.importRecordPerLine(ebi, inputfile);
+        Account account = new Account(1, "easybank-giro", Currency.EUR, new EasyBankImporter(1));
+        List<Transaction> transactions = FileImporter.importRecordPerLine(account.getImporter(), inputfile);
         
         FileCreator fc = new FileCreator(new QifExporter(), transactions);
-        fc.exportFile(OUTPUTFILENAME);
+        fc.exportFile(new File(OUTPUTFILENAME));
     }
 }

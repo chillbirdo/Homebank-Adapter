@@ -1,5 +1,7 @@
 package com.gf.doughflow.translator.importer;
 
+import com.gf.doughflow.translator.exporter.FileCreator;
+import com.gf.doughflow.translator.exporter.XhbInsertingExporter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.LinkedList;
@@ -13,6 +15,8 @@ import java.io.InputStreamReader;
 
 public class FileImporter {
 
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    
     public static List<Transaction> importRecordPerLine(IImporter importer, File file) {
         List<Transaction> ret = new LinkedList<>();
         try {
@@ -21,11 +25,12 @@ public class FileImporter {
             String line = br.readLine();
 
             while (line != null) {
-                System.out.println("LINE: " + line);
                 Transaction t;
                 try {
                     t = importer.toTransaction(line);
-                    ret.add(t);
+                    if (t != null) {
+                        ret.add(t);
+                    }
                 } catch (Exception ex) {
                     Logger.getLogger(FileImporter.class.getName()).log(Level.SEVERE, "Could not import Record. ['" + line + "']", ex);
                 }
@@ -36,5 +41,13 @@ public class FileImporter {
             throw new RuntimeException(e);
         }
         return ret;
+    }
+    
+    public static int mergeIntoXhb(File xhbFile, List<Transaction> records){
+                XhbInsertingExporter xhbInsertingExporter = new XhbInsertingExporter(xhbFile);
+                List<Transaction> nonDuplicates = xhbInsertingExporter.filterDuplicates(records);
+                FileCreator fc = new FileCreator(xhbInsertingExporter, nonDuplicates);
+                fc.exportFile(xhbFile);
+                return nonDuplicates.size();
     }
 }

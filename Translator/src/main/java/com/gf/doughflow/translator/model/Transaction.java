@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Transaction {
 
-    private int id;
     private Date date;
     private String description;
     private Double value;
@@ -35,14 +34,6 @@ public class Transaction {
         this.description = description;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -51,4 +42,11 @@ public class Transaction {
         this.category = category;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

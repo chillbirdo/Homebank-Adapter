@@ -1,27 +1,26 @@
 package com.gf.doughflow.translator.importer;
 
 import java.text.SimpleDateFormat;
-import java.util.logging.Logger;
-import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Transaction;
-import java.text.DecimalFormat;
+import com.gf.doughflow.workspace.AccountRegistry;
 
 public class EasyBankImporter implements IImporter {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    private final Account account;
+    private final int accountId;
     
-    public EasyBankImporter(Account account){
-        this.account = account;
+    public EasyBankImporter(int accountId){
+        this.accountId = accountId;
     }
     
+    @Override
     public Transaction toTransaction(Object record) throws Exception{
         String[] recordSplit = ((String)record).split(";");
         if(recordSplit.length != 6){
             throw new Exception("Invalid record: " + record);
         }
         Transaction t = new Transaction();
-        t.setAccount(this.account);
+        t.setAccount(AccountRegistry.get(accountId));
         t.setDescription(convertDescription(recordSplit[1]));
         t.setValue(convertToDouble(recordSplit[4]));
         t.setDate(sdf.parse(recordSplit[3]));
