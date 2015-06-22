@@ -1,6 +1,6 @@
 package com.gf.doughflow.run;
 
-import com.gf.doughflow.swing.UIWorkingDirChooser;
+import com.gf.doughflow.swing.UIHandler;
 import com.gf.doughflow.workspace.DFProperties;
 import com.gf.doughflow.workspace.WorkSpace;
 import java.io.File;
@@ -18,10 +18,11 @@ public class DoughFlow {
     public void start(String propFilePath) {
 
         DFProperties prop = new DFProperties(propFilePath);
-        UIWorkingDirChooser wdc = new UIWorkingDirChooser(prop.getDefaultWorkDir());
-        prop.setAndWriteDefaultWorkDir(wdc.getWorkDir());
-        WorkSpace ws = new WorkSpace(wdc.getWorkDir());
-        ws.importData();
+        UIHandler wdc = new UIHandler();
+        String workDir = wdc.showDirChooser(prop.getDefaultWorkDir());
+        prop.setAndWriteDefaultWorkDir(workDir);
+        WorkSpace ws = new WorkSpace(workDir);
+        ws.importData(wdc);
 
         try {
             //start homebank

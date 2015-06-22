@@ -15,12 +15,8 @@ public class Csv2Qif {
     
     public static void main(String a[]){
         
-//        final String INPUTFILENAME = "/home/gilbert/temp/giro.csv";
-//        final String OUTPUTFILENAME = "/home/gilbert/temp/giro.qif";
-        final String INPUTFILENAME = "/home/gilbert/Desktop/EASYBANK_Umsatzliste_20150403_2148.csv";
-        final String OUTPUTFILENAME = "/home/gilbert/Desktop/easy.qif";
-//        final String INPUTFILENAME = "/home/gilbert/temp/kreditkarte.csv";
-//        final String OUTPUTFILENAME = "/home/gilbert/temp/kreditkarte.qif";
+        final String INPUTFILENAME = "/path/to/umsatzliste.csv";
+        final String OUTPUTFILENAME = "/path/to/umsatzliste.qif";
         
         File inputfile = new File(INPUTFILENAME);
         Account account = new Account(1, "easybank-giro", Currency.EUR, new EasyBankImporter(1));

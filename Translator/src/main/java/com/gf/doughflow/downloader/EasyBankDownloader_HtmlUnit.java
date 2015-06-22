@@ -4,11 +4,12 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
+import java.io.InvalidObjectException;
 
-public class EasyBankDownloader implements IDownloader {
+public class EasyBankDownloader_HtmlUnit implements IDownloader {
 
     public static void main(String[] args){
-        new EasyBankDownloader().download();
+        new EasyBankDownloader_HtmlUnit().download();
     }
     
     @Override
@@ -20,16 +21,19 @@ public class EasyBankDownloader implements IDownloader {
 
         try{
             final HtmlPage page1 = webClient.getPage("https://ebanking.easybank.at/InternetBanking/InternetBanking?d=login&svc=EASYBANK&ui=html&lang=en");
-            HtmlElement button = (HtmlElement)page1.getByXPath( "//div[@class='dynamic-btn fright nomargin']").get(0);
+            HtmlAnchor button = (HtmlAnchor)page1.getByXPath( "//a[@class='btn-senden btn-login']").get(0);
             
             final HtmlForm form = page1.getFormByName("loginForm");
             final HtmlTextInput textField = form.getInputByName("dn");
             final HtmlPasswordInput pwd = form.getInputByName("pin");
 
-            textField.setValueAttribute("xxxx");
-            pwd.setValueAttribute("xxxs");
+            textField.setValueAttribute("xxxxx");
+            pwd.setValueAttribute("xxxxx");
 //
             final HtmlPage page2 = button.click();
+            if( page2.asText().contains("login failed")){
+                throw new Exception("Login failed!");
+            }
             System.out.println(page2.asXml());
 
             

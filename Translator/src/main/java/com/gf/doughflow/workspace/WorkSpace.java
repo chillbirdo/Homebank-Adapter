@@ -1,5 +1,6 @@
 package com.gf.doughflow.workspace;
 
+import com.gf.doughflow.swing.UIHandler;
 import com.gf.doughflow.translator.exporter.FileCreator;
 import com.gf.doughflow.translator.exporter.XhbExporter;
 import com.gf.doughflow.translator.importer.FileImporter;
@@ -56,7 +57,7 @@ public class WorkSpace {
         logger.info("Working on workspace at " + wd);
     }
 
-    public void importData() {
+    public void importData(UIHandler wdc) {
         for (Account account : accounts.values()) {
             long lastmod = 0;
             File latestFile = null;
@@ -75,7 +76,11 @@ public class WorkSpace {
                 createBackup("beforeImport");
                 List<Transaction> freshTransactions = FileImporter.importRecordPerLine(account.getImporter(), latestFile);
                 int imported = FileImporter.mergeIntoXhb(this.actualFile, freshTransactions);
-                logger.info("Imported " + imported + " transactions of account '" + account.getName() + "'");
+                String msg = "Imported " + imported + " transactions of account '" + account.getName() + "'";
+                if (imported > 0) {
+                    logger.info(msg);
+                    wdc.showImportedMessage(msg);
+                }
             }
             for (File f : files) {
                 if (f.isFile()) {
