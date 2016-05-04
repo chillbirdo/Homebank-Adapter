@@ -1,6 +1,7 @@
 package com.gf.doughflow.run;
 
 import com.gf.doughflow.swing.UIHandler;
+import com.gf.doughflow.workspace.AccountRegistry;
 import com.gf.doughflow.workspace.DFProperties;
 import com.gf.doughflow.workspace.WorkSpace;
 import java.io.File;
@@ -18,6 +19,7 @@ public class DoughFlow {
     public void start(String propFilePath) {
 
         DFProperties prop = new DFProperties(propFilePath);
+        AccountRegistry.init(prop.readAccounts());
         UIHandler wdc = new UIHandler();
         String workDir = wdc.showDirChooser(prop.getDefaultWorkDir());
         prop.setAndWriteDefaultWorkDir(workDir);

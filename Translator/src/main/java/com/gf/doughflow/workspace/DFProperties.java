@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -15,6 +17,7 @@ public class DFProperties extends Properties {
 
     private final String WORKDIR_DEFAULT = "workdir_default";
     private final String WORKDIR_RECOVER = "./doughflow";
+    private final String ACCOUNT_PREFIX = "account_id";
 
     File propFile;
     String workDir;
@@ -58,6 +61,16 @@ public class DFProperties extends Properties {
         return wd;
     }
 
+    public List<String> readAccounts() {
+        int id = 0;
+        List<String> accountstrlst = new ArrayList(10);
+        while(getProperty(ACCOUNT_PREFIX + id) != null){
+            accountstrlst.add(getProperty( ACCOUNT_PREFIX + id));
+            id++;
+        }
+        return accountstrlst;
+    }
+    
     public String getDefaultWorkDir() {
         return workDir;
     }
