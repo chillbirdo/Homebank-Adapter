@@ -49,7 +49,7 @@ public class XhbInsertingExporter extends XhbExporter {
     private String extractKey(Transaction t) {
         return t.getAccount().getId() + JulianDate.dateToJulian(t.getDate()) + t.getDescription();
     }
-
+    
     @Override
     public String createHeader() {
         return contentBefore;

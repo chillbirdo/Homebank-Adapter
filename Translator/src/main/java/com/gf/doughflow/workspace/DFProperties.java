@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -61,14 +63,20 @@ public class DFProperties extends Properties {
         return wd;
     }
 
-    public List<String> readAccounts() {
-        int id = 0;
-        List<String> accountstrlst = new ArrayList(10);
+    public Map<Integer,String> readAccounts() {
+        if( getProperty(ACCOUNT_PREFIX + 0) != null){
+            throw new RuntimeException("Account with ID 0 detected. Accounts should start with ID 1.");
+        }
+        Map<Integer,String> accountMap = new HashMap(10);
+        int id = 1;
         while(getProperty(ACCOUNT_PREFIX + id) != null){
-            accountstrlst.add(getProperty( ACCOUNT_PREFIX + id));
+            accountMap.put(id, getProperty( ACCOUNT_PREFIX + id));
             id++;
         }
-        return accountstrlst;
+        if(accountMap.isEmpty()){
+            throw new RuntimeException("No accounts have been configured.");
+        }
+        return accountMap;
     }
     
     public String getDefaultWorkDir() {

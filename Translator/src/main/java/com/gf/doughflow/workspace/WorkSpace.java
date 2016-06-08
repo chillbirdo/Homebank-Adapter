@@ -62,6 +62,7 @@ public class WorkSpace {
             long lastmod = 0;
             File latestFile = null;
             File[] files = new File(account.getImportDir()).listFiles();
+            //find latest file
             for (File f : files) {
                 if (f.isDirectory()) {
                     continue;
@@ -71,8 +72,9 @@ public class WorkSpace {
                     latestFile = f;
                 }
             }
+            //import latest file
             if (latestFile != null) {
-                logger.fine("Importing file '" + latestFile.getAbsolutePath() + "' for account '" + account.getName() + "'");
+                logger.info("Importing file '" + latestFile.getAbsolutePath() + "' for account '" + account.getName() + "'");
                 createBackup("beforeImport");
                 List<Transaction> freshTransactions = FileImporter.importRecordPerLine(account.getImporter(), latestFile);
                 int imported = FileImporter.mergeIntoXhb(this.actualFile, freshTransactions);
@@ -82,6 +84,7 @@ public class WorkSpace {
                     wdc.showImportedMessage(msg);
                 }
             }
+            //move all files into processed
             for (File f : files) {
                 if (f.isFile()) {
                     try {
