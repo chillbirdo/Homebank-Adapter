@@ -28,7 +28,7 @@ public class DoughFlow {
 
         try {
             //start homebank
-            Process process = new ProcessBuilder("homebank",
+            Process process = new ProcessBuilder(prop.getHomebankExecuteable(),
                     ws.getActualFile().getAbsolutePath()).start();
 
             //make local backups

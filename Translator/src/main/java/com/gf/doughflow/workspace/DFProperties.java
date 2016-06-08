@@ -6,9 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -18,11 +16,14 @@ public class DFProperties extends Properties {
     private final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private final String WORKDIR_DEFAULT = "workdir_default";
-    private final String WORKDIR_RECOVER = "./doughflow";
+    private final String WORKDIR_DEFAULT_DEFAULT = "./ws_private";
+    private final String EXEC_HOMEBANK = "exec_homebank";
     private final String ACCOUNT_PREFIX = "account_id";
+    
 
     File propFile;
     String workDir;
+    String homebankExecuteable;
 
     public DFProperties(String propFilePath) {
         propFile = new File(propFilePath);
@@ -53,14 +54,23 @@ public class DFProperties extends Properties {
     private void init(InputStream stream) throws IOException {
         super.load(stream);
         workDir = readWorkDir();
+        homebankExecuteable = readHomebank();
     }
 
     private String readWorkDir() {
         String wd = getProperty(WORKDIR_DEFAULT);
         if (wd == null || wd.isEmpty()) {
-            return WORKDIR_RECOVER;
+            return WORKDIR_DEFAULT_DEFAULT;
         }
         return wd;
+    }
+
+    private String readHomebank() {
+        String homebank = getProperty(EXEC_HOMEBANK);
+        if (homebank == null || homebank.isEmpty()) {
+            throw new RuntimeException("Path to homebank is missing. Please adapt the properties");
+        }
+        return homebank;
     }
 
     public Map<Integer,String> readAccounts() {
@@ -90,4 +100,13 @@ public class DFProperties extends Properties {
     public void setPropFile(File propFile) {
         this.propFile = propFile;
     }
+
+    public String getHomebankExecuteable() {
+        return homebankExecuteable;
+    }
+
+    public void setHomebankExecuteable(String homebankExecuteable) {
+        this.homebankExecuteable = homebankExecuteable;
+    }
+    
 }
