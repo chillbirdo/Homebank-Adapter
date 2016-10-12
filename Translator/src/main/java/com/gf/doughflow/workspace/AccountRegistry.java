@@ -12,6 +12,7 @@ public class AccountRegistry {
 
     private static final String SEPARATOR = ";";
     private static final String ID_EASYBANK = "EASYBANK";
+    private static final String ID_OTHER_EXPENSES = "OTHER_EXPENSES";
 
     private static final int ACCOUNT_BANK = 0;
     private static final int ACCOUNT_CURR = 1;
@@ -29,6 +30,9 @@ public class AccountRegistry {
             switch (accountprop[ACCOUNT_BANK]) {
                 case ID_EASYBANK:
                     importer = new EasyBankImporter(accountId);
+                    break;
+                case ID_OTHER_EXPENSES:
+                    importer = null;
                     break;
                 default:
                     throw new RuntimeException("Invalid Bank Id: " + accountprop[ACCOUNT_BANK]);
