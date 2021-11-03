@@ -3,11 +3,11 @@ package com.gf.doughflow.translator.exporter;
 import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Category;
 import com.gf.doughflow.translator.model.Transaction;
-import com.gf.doughflow.util.JulianDate;
+import com.gf.doughflow.translator.util.DescriptionConverter;
+import com.gf.doughflow.translator.util.HomebankDate;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class XhbExporter implements IExporter {
 
@@ -23,21 +23,21 @@ public class XhbExporter implements IExporter {
         String header = "<?xml version=\"1.0\"?>" + System.lineSeparator()
                 + "<homebank v=\"" + hbVersion + "\">" + System.lineSeparator()
                 + "<properties title=\"" + title + "\" car_category=\"0\" auto_nbdays=\"0\"/>" + System.lineSeparator();
-        String accHeader = "";
+        StringBuilder accHeader = new StringBuilder();
         for (Account acc : accounts) {
-            accHeader += convertAccount(acc) + System.lineSeparator();
+            accHeader.append(convertAccount(acc)).append(System.lineSeparator());
         }
-        String catHeader = "";
+        StringBuilder catHeader = new StringBuilder();
         for (Category cat : categories) {
-            catHeader += convertCategory(cat) + System.lineSeparator();
+            catHeader.append(convertCategory(cat)).append(System.lineSeparator());
         }
         return header + accHeader + catHeader;
     }
 
     @Override
     public String export(Transaction transaction) {
-        return "<ope date=\"" + JulianDate.dateToJulian(transaction.getDate()) + "\" amount=\"" + convertValue(transaction.getValue()) + "\" account=\"" + transaction.getAccount().getId()
-                + "\" wording=\"" + replaceProblematicCharacters(replaceGermanLetters(transaction.getDescription()))
+        return "<ope date=\"" + HomebankDate.dateToHomebankDate(transaction.getDate()) + "\" amount=\"" + convertValue(transaction.getValue()) + "\" account=\"" + transaction.getAccount().getId()
+                + "\" wording=\"" + replaceProblematicCharacters(DescriptionConverter.replaceGermanLetters(transaction.getDescription().toLowerCase()))
                 + "\" dst_account=\"0\" payee=\"0\" category=\"0\" info=\"\" tags=\"\" kxfer=\"0\" />" + System.lineSeparator();
     }
 
@@ -53,15 +53,6 @@ public class XhbExporter implements IExporter {
     private String replaceProblematicCharacters( String description){
         return description.replaceAll("&", "&amp;");
     }
-    
-    private String replaceGermanLetters(String description) {
-        return description.toLowerCase().replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue").replaceAll("ß", "ss");
-    }
-
-    private String convertDescription(String description) {
-        return replaceGermanLetters(description);
-    }
-
 
     private String convertCategory(Category cat) {
         return "";

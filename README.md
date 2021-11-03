@@ -7,8 +7,8 @@ Feel free to contribute your bank by simply implementing the IImporter interface
 
 ## Requirements:
 
-- JRE 7
-- Homebank 4.4 or higher (added to PATH!)
+- JRE 8
+- Homebank 4.4 or higher (added to your `PATH`)
 
 ## Features:
 

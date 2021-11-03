@@ -1,9 +1,9 @@
 package com.gf.doughflow.workspace;
 
 import com.gf.doughflow.swing.UIHandler;
-import com.gf.doughflow.translator.exporter.FileCreator;
+import com.gf.doughflow.translator.exporter.FileWriter;
 import com.gf.doughflow.translator.exporter.XhbExporter;
-import com.gf.doughflow.translator.importer.FileImporter;
+import com.gf.doughflow.translator.importer.FileReader;
 import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Transaction;
 import java.io.File;
@@ -28,36 +28,36 @@ public class WorkSpace {
     private final String FOLDER_TEMP = "temp";
     private final String FOLDER_PROCESSED = "processed";
 
-    private final File actualFile;
-    private final File workDir;
-    private final File actualDir;
-    private final File backupDir;
-    private final File importDir;
-    private final File tempDir;
+    private final File fileActual;
+    private final File folderActual;
+    private final File folderWork;
+    private final File folderBackup;
+    private final File folderImport;
+    private final File folderTemp;
     private final Map<Integer, Account> accounts;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmssSSS");
 
-    public WorkSpace(String wd) {
+    public WorkSpace(String folderWork) {
         this.accounts = AccountRegistry.getAccounts();
-        this.workDir = checkExistsAndCreateDir(wd);
-        this.actualDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_ACTUAL);
-        this.actualFile = checkExistsAndCreateActualFile(actualDir.getAbsolutePath() + "/" + FILE_ACTUAL);
-        this.backupDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_BACKUP);
-        this.importDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_IMPORT);
+        this.folderWork = checkExistsAndCreateDir(folderWork);
+        this.folderActual = checkExistsAndCreateDir(this.folderWork.getAbsolutePath() + "/" + FOLDER_ACTUAL);
+        this.fileActual = checkExistsAndCreateActualFile(folderActual.getAbsolutePath() + "/" + FILE_ACTUAL);
+        this.folderBackup = checkExistsAndCreateDir(this.folderWork.getAbsolutePath() + "/" + FOLDER_BACKUP);
+        this.folderImport = checkExistsAndCreateDir(this.folderWork.getAbsolutePath() + "/" + FOLDER_IMPORT);
         for (Integer accountId : accounts.keySet()) {
-            String importDirAccount = this.importDir + "/" + accountNameToFileName(accounts.get(accountId).getName());
+            String importDirAccount = this.folderImport + "/" + accountNameToFileName(accounts.get(accountId).getName());
             String importDirAccountProcessed = importDirAccount + "/" + FOLDER_PROCESSED;
             accounts.get(accountId).setImportDir(importDirAccount);
             checkExistsAndCreateDir(importDirAccount);
             accounts.get(accountId).setImportDirProcessed(importDirAccountProcessed);
             checkExistsAndCreateDir(importDirAccountProcessed);
         }
-        this.tempDir = checkExistsAndCreateDir(workDir.getAbsolutePath() + "/" + FOLDER_TEMP);
-        logger.info("Working on workspace at " + wd);
+        this.folderTemp = checkExistsAndCreateDir(this.folderWork.getAbsolutePath() + "/" + FOLDER_TEMP);
+        logger.info("Working on workspace at " + folderWork);
     }
 
-    public void importData(UIHandler wdc) {
+    public void importData(UIHandler wdc) throws IOException {
         for (Account account : accounts.values()) {
             long lastmod = 0;
             File latestFile = null;
@@ -76,8 +76,8 @@ public class WorkSpace {
             if (latestFile != null) {
                 logger.info("Importing file '" + latestFile.getAbsolutePath() + "' for account '" + account.getName() + "'");
                 createBackup("beforeImport");
-                List<Transaction> freshTransactions = FileImporter.importRecordPerLine(account.getImporter(), latestFile);
-                int imported = FileImporter.mergeIntoXhb(this.actualFile, freshTransactions);
+                List<Transaction> freshTransactions = FileReader.importCsv(account.getImporter(), latestFile);
+                int imported = FileWriter.mergeIntoXhb(this.fileActual, freshTransactions);
                 String msg = "Imported " + imported + " transactions of account '" + account.getName() + "'";
                 if (imported > 0) {
                     logger.info(msg);
@@ -99,9 +99,9 @@ public class WorkSpace {
     }
 
     public void createBackup(String comment) {
-        File destFile = new File(getBackupDir() + "/backup.xhb_" + sdf.format(new Date()) + ((comment != null) ? "_" + comment : ""));
+        File destFile = new File(getFolderBackup() + "/backup.xhb_" + sdf.format(new Date()) + ((comment != null) ? "_" + comment : ""));
         try {
-            FileUtils.copyFile(getActualFile(), destFile);
+            FileUtils.copyFile(getFileActual(), destFile);
         } catch (IOException ex) {
             Logger.getLogger(WorkSpace.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,7 +114,7 @@ public class WorkSpace {
     private File checkExistsAndCreateActualFile(String filePath) {
         File actual = new File(filePath);
         if (!actual.exists()) {
-            FileCreator fc = new FileCreator(createInitializingExporter(), new ArrayList());
+            FileWriter fc = new FileWriter(createInitializingExporter(), new ArrayList());
             fc.exportFile(actual);
             System.out.println("created initial xhb file: '" + filePath + "'.");
         } else if (!actual.isFile()) {
@@ -143,27 +143,27 @@ public class WorkSpace {
         return dir;
     }
 
-    public File getActualFile() {
-        return actualFile;
+    public File getFileActual() {
+        return fileActual;
     }
 
-    public File getWorkDir() {
-        return workDir;
+    public File getFolderWork() {
+        return folderWork;
     }
 
-    public File getActualDir() {
-        return actualDir;
+    public File getFolderActual() {
+        return folderActual;
     }
 
-    public File getBackupDir() {
-        return backupDir;
+    public File getFolderBackup() {
+        return folderBackup;
     }
 
-    public File getImportDir() {
-        return importDir;
+    public File getFolderImport() {
+        return folderImport;
     }
 
-    public File getTempDir() {
-        return tempDir;
+    public File getFolderTemp() {
+        return folderTemp;
     }
 }

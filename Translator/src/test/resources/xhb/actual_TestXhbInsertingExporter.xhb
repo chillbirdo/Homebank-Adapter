@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<homebank v="1.3999999999999999" d="050403">
+<properties title="default" curr="1" auto_smode="1" auto_weekday="1"/>
+<cur key="1" flags="0" iso="EUR" name="Euro" symb="€" syprf="1" dchar="," gchar=" " frac="2" rate="0" mdate="0"/>
+<account key="1" flags="32" pos="1" type="1" curr="1" name="easy giro" initial="0" minimum="0"/>
+<account key="2" flags="32" pos="2" type="1" curr="1" name="easy spar" initial="0" minimum="0"/>
+<cat key="1" flags="2" name="Income"/>
+<asg key="1" flags="6" pos="1" name="de37100110012629181529" category="4"/>
+<ope date="738091" amount="10" account="1" flags="2" category="57" wording="bezahlung karte mc/000005253 5436 k004 28.10. 11:34 burger vegan \\wien\1220" info="blabla"/>
+<ope date="738702" amount="-3000" account="1" flags="2" category="57" wording="keep your head strong" info="blublu"/>
+</homebank>

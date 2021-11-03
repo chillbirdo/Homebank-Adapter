@@ -1,6 +1,6 @@
 package com.gf.doughflow.translator.model;
 
-import com.gf.doughflow.translator.importer.IImporter;
+import com.gf.doughflow.translator.importer.BaseCsvImporter;
 
 public class Account {
 
@@ -9,9 +9,9 @@ public class Account {
     private final Currency currency;
     private String importDir = null;
     private String importDirProcessed = null;
-    private IImporter importer;
-    
-    public Account(int id, String name, Currency currency, IImporter importer){
+    private BaseCsvImporter importer;
+
+    public Account(int id, String name, Currency currency, BaseCsvImporter importer){
         this.id = id;
         this.name = name;
         this.currency = currency;
@@ -38,11 +38,11 @@ public class Account {
         this.importDir = importDir;
     }
 
-    public IImporter getImporter() {
+    public BaseCsvImporter getImporter() {
         return importer;
     }
 
-    public void setImporter(IImporter importer) {
+    public void setImporter(BaseCsvImporter importer) {
         this.importer = importer;
     }
 

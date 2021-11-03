@@ -1,11 +1,6 @@
 package com.gf.doughflow.workspace;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -19,21 +14,17 @@ public class DFProperties extends Properties {
     private final String WORKDIR_DEFAULT_DEFAULT = "./ws_private";
     private final String EXEC_HOMEBANK = "exec_homebank";
     private final String ACCOUNT_PREFIX = "account_id";
-    
+
 
     File propFile;
     String workDir;
     String homebankExecuteable;
 
-    public DFProperties(String propFilePath) {
+    public DFProperties(String propFilePath) throws IOException {
         propFile = new File(propFilePath);
-        try {
-            InputStream in = new FileInputStream(propFile);
-            init(in);
-            in.close();
-        } catch (Exception e) {
-            logger.severe("Error when reading properties file '" + propFilePath + "'. Exiting...\n" + e.getMessage());
-        }
+        InputStream in = new FileInputStream(propFile);
+        init(in);
+        in.close();
     }
 
     public void setAndWriteDefaultWorkDir(String wd) {
@@ -77,7 +68,7 @@ public class DFProperties extends Properties {
         if( getProperty(ACCOUNT_PREFIX + 0) != null){
             throw new RuntimeException("Account with ID 0 detected. Accounts should start with ID 1.");
         }
-        Map<Integer,String> accountMap = new HashMap(10);
+        Map<Integer,String> accountMap = new HashMap(20);
         int id = 1;
         while(getProperty(ACCOUNT_PREFIX + id) != null){
             accountMap.put(id, getProperty( ACCOUNT_PREFIX + id));
@@ -88,7 +79,7 @@ public class DFProperties extends Properties {
         }
         return accountMap;
     }
-    
+
     public String getDefaultWorkDir() {
         return workDir;
     }
@@ -108,5 +99,5 @@ public class DFProperties extends Properties {
     public void setHomebankExecuteable(String homebankExecuteable) {
         this.homebankExecuteable = homebankExecuteable;
     }
-    
+
 }

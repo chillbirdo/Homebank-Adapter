@@ -1,7 +1,6 @@
 package com.gf.doughflow.workspace;
 
-import com.gf.doughflow.translator.importer.EasyBankImporter;
-import com.gf.doughflow.translator.importer.IImporter;
+import com.gf.doughflow.translator.importer.*;
 import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Currency;
 import java.util.HashMap;
@@ -12,6 +11,10 @@ public class AccountRegistry {
 
     private static final String SEPARATOR = ";";
     private static final String ID_EASYBANK = "EASYBANK";
+    private static final String ID_N26 = "N26";
+    private static final String ID_BANKAUSTRIA = "BANKAUSTRIA";
+    private static final String ID_DKB = "DKB";
+    private static final String ID_REVOLUT = "REVOLUT";
     private static final String ID_OTHER_EXPENSES = "OTHER_EXPENSES";
 
     private static final int ACCOUNT_BANK = 0;
@@ -26,10 +29,19 @@ public class AccountRegistry {
             String accountInfoStr = e.getValue();
             Integer accountId = e.getKey();
             String[] accountprop = accountInfoStr.split(SEPARATOR);
-            IImporter importer = null;
+            BaseCsvImporter importer;
             switch (accountprop[ACCOUNT_BANK]) {
                 case ID_EASYBANK:
-                    importer = new EasyBankImporter(accountId);
+                    importer = new EasybankCsvImporter(accountId);
+                    break;
+                case ID_N26:
+                    importer = new N26CsvImporter(accountId);
+                    break;
+                case ID_DKB:
+                    importer = new DKBCsvImporter(accountId);
+                    break;
+                case ID_REVOLUT:
+                    importer = new RevolutCsvImporter(accountId);
                     break;
                 case ID_OTHER_EXPENSES:
                     importer = null;

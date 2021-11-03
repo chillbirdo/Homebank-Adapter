@@ -1,9 +1,9 @@
 package com.gf.doughflow.translator.importer;
 
-import com.gf.doughflow.translator.model.Transaction;
+
+import java.nio.charset.Charset;
 
 public interface IImporter {
 
-    public Transaction toTransaction(Object record) throws Exception;
-    
+    Charset getCharset();
 }

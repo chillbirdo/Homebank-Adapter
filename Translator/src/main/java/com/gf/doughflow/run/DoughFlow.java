@@ -4,19 +4,15 @@ import com.gf.doughflow.swing.UIHandler;
 import com.gf.doughflow.workspace.AccountRegistry;
 import com.gf.doughflow.workspace.DFProperties;
 import com.gf.doughflow.workspace.WorkSpace;
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
 
 public class DoughFlow {
 
     private final long FILELISTENER_DELAY_MS = 2000;
     private final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    public void start(String propFilePath) {
+    public void start(String propFilePath) throws IOException {
 
         DFProperties prop = new DFProperties(propFilePath);
         AccountRegistry.init(prop.readAccounts());
@@ -29,29 +25,27 @@ public class DoughFlow {
         try {
             //start homebank
             Process process = new ProcessBuilder(prop.getHomebankExecuteable(),
-                    ws.getActualFile().getAbsolutePath()).start();
+                    ws.getFileActual().getAbsolutePath()).start();
 
             //make local backups
-            long lastmodOld = ws.getActualFile().lastModified();
-            while (process.isAlive()) {
+            long lastmodOld = ws.getFileActual().lastModified();
+            while (process.isAlive()) { // every 2 seconds check whether the homebank file has changed and make a backup
                 Thread.sleep(FILELISTENER_DELAY_MS);
-                long lastmod = ws.getActualFile().lastModified();
+                long lastmod = ws.getFileActual().lastModified();
                 if (lastmod > lastmodOld) {
                     ws.createBackup(null);
                     lastmodOld = lastmod;
                 }
             }
-        } catch (IOException e) {
-            logger.severe(e.getMessage());
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             logger.severe(e.getMessage());
         } finally {
             wdc.close();
         }
     }
 
-    public static void main(String args[]) {
-        String propFile = "./doughflow.properties";
+    public static void main(String[] args) throws IOException {
+        String propFile = "./adapter.properties";
         if (args.length > 0) {
             propFile = args[0];
         }
