@@ -40,6 +40,6 @@ public class N26CsvImporterTest {
         Assertions.assertEquals(940, transactions.get(1).getValue());
         Assertions.assertEquals( "05-09-2017", simpleDateFormat.format(transactions.get(2).getDate()));
         Assertions.assertEquals( "upc rechnung 211121321 aenderung", transactions.get(2).getDescription());
-        Assertions.assertEquals(-27.85, transactions.get(2).getValue());
+        Assertions.assertEquals(-1001.23, transactions.get(2).getValue());
     }
 }

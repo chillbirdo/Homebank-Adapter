@@ -5,7 +5,10 @@ import com.gf.doughflow.translator.util.AmountConverter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class DKBCsvImporter extends BaseCsvImporter {
+/**
+ * Demonstrates the use of custom importer if YAML configuration is not flexile enough
+ */
+public class SampleCustomCsvImporter extends BaseCsvImporter {
 
     private final Charset CHARSET = StandardCharsets.ISO_8859_1;
     private final int HEADER_LINES = 7;
@@ -20,9 +23,16 @@ public class DKBCsvImporter extends BaseCsvImporter {
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(
             HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMN_DESCRIPTION);
 
-    public DKBCsvImporter(int accountIdInWorkspace){
+    public SampleCustomCsvImporter(int accountIdInWorkspace){
         super(accountIdInWorkspace);
         super.charset = CHARSET;
         super.csvImporterProperties = csvImporterProperties;
     }
+
+    @Override
+    protected Double convertAmount(String ds) {
+        String dsPeriod = ds.replaceAll("\\.", "").replaceAll(",", ".");
+        return Double.valueOf(dsPeriod);
+    }
+
 }

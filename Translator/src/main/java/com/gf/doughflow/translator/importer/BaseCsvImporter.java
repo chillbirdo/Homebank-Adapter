@@ -1,6 +1,7 @@
 package com.gf.doughflow.translator.importer;
 
 import com.gf.doughflow.translator.model.Transaction;
+import com.gf.doughflow.translator.util.AmountConverter;
 import com.gf.doughflow.translator.util.DescriptionConverter;
 import com.gf.doughflow.workspace.AccountRegistry;
 
@@ -39,7 +40,7 @@ public class BaseCsvImporter implements IImporter {
     }
 
     protected Double convertAmount(String amountStr) {
-        return Double.valueOf(amountStr);
+        return AmountConverter.convertAmount(amountStr, csvImporterProperties.getFloatingPointCharacter());
     }
 
     protected String convertDescription(String description) {

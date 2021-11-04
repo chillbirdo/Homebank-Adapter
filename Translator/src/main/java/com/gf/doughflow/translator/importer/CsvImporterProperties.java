@@ -1,5 +1,7 @@
 package com.gf.doughflow.translator.importer;
 
+import com.gf.doughflow.translator.util.AmountConverter;
+
 import java.util.Properties;
 
 public class CsvImporterProperties extends Properties {
@@ -9,16 +11,18 @@ public class CsvImporterProperties extends Properties {
     private String separator;
     private Integer dateColumn;
     private Integer amountColumn;
+    private AmountConverter.DigitPunctuation floatingPointCharacter;
     private Integer descriptionColumn;
     private String dateFormat;
 
-    public CsvImporterProperties(Integer headerLineAmount, Integer columnAmount, String separator, Integer dateColumn, String dateFormat, Integer amountColumn, Integer descriptionColumn){
+    public CsvImporterProperties(Integer headerLineAmount, Integer columnAmount, String separator, Integer dateColumn, String dateFormat, Integer amountColumn, AmountConverter.DigitPunctuation floatingPointPunctuation, Integer descriptionColumn){
         this.headerLineAmount = headerLineAmount;
         this.columnAmount = columnAmount;
         this.separator = separator;
         this.dateColumn = dateColumn;
         this.dateFormat = dateFormat;
         this.amountColumn = amountColumn;
+        this.floatingPointCharacter = floatingPointPunctuation;
         this.descriptionColumn = descriptionColumn;
     }
 
@@ -78,4 +82,11 @@ public class CsvImporterProperties extends Properties {
         return descriptionColumn;
     }
 
+    public AmountConverter.DigitPunctuation getFloatingPointCharacter() {
+        return floatingPointCharacter;
+    }
+
+    public void setFloatingPointCharacter(AmountConverter.DigitPunctuation floatingPointCharacter) {
+        this.floatingPointCharacter = floatingPointCharacter;
+    }
 }

@@ -1,5 +1,7 @@
 package com.gf.doughflow.translator.importer;
 
+import com.gf.doughflow.translator.util.AmountConverter;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -13,9 +15,10 @@ public class RevolutCsvImporter extends BaseCsvImporter {
     private final String DATE_FORMAT = "yyyy-MM-dd";
     private final int COLUMN_DESCRIPTION = 7;
     private final int COLUMN_AMOUNT = 11;
+    private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.PERIOD;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(
-            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, COLUMN_DESCRIPTION);
+            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMN_DESCRIPTION);
 
     public RevolutCsvImporter(int accountIdInWorkspace){
         super(accountIdInWorkspace);
