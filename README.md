@@ -7,6 +7,7 @@ Banks supported:
 - N26
 - DKB (Deutsche Kreditbank)
 - Revolut
+- FLATEX
 
 ## Why you should use it
 

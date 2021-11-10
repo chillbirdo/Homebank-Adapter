@@ -12,7 +12,7 @@ public class AccountRegistry {
     private static final String SEPARATOR = ";";
     private static final String ID_EASYBANK = "EASYBANK";
     private static final String ID_N26 = "N26";
-    private static final String ID_BANKAUSTRIA = "BANKAUSTRIA";
+    private static final String ID_FLATEX = "FLATEX";
     private static final String ID_DKB = "DKB";
     private static final String ID_REVOLUT = "REVOLUT";
     private static final String ID_OTHER_EXPENSES = "OTHER_EXPENSES";
@@ -42,6 +42,9 @@ public class AccountRegistry {
                     break;
                 case ID_REVOLUT:
                     importer = new RevolutCsvImporter(accountId);
+                    break;
+                case ID_FLATEX:
+                    importer = new FlatexCsvImporter(accountId);
                     break;
                 case ID_OTHER_EXPENSES:
                     importer = null;
