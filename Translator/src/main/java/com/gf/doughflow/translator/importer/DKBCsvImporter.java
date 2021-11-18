@@ -13,7 +13,7 @@ public class DKBCsvImporter extends BaseCsvImporter {
     private final String DELIMITER = ";";
     private final int COLUMN_DATE = 0;
     private final String DATE_FORMAT = "dd.MM.yyyy";
-    private final int COLUMN_DESCRIPTION = 4;
+    private final int COLUMN_DESCRIPTION = 3;
     private final int COLUMN_AMOUNT = 7;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.COMMA;
 
