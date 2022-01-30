@@ -14,7 +14,7 @@ public class RevolutCsvImporter extends BaseCsvImporter {
     private final int COLUMN_DATE = 0;
     private final String DATE_FORMAT = "yyyy-MM-dd";
     private final int COLUMN_DESCRIPTION = 7;
-    private final int COLUMN_AMOUNT = 11;
+    private final int COLUMN_AMOUNT = 13;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.PERIOD;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(

@@ -61,6 +61,7 @@ public class WorkSpace {
         for (Account account : accounts.values()) {
             long lastmod = 0;
             File latestFile = null;
+            logger.info("looking for files to import in '" + account.getImportDir() + "'");
             File[] files = new File(account.getImportDir()).listFiles();
             //find latest file
             for (File f : files) {
