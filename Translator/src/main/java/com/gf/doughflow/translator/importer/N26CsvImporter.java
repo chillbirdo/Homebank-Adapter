@@ -9,12 +9,12 @@ public class N26CsvImporter extends BaseCsvImporter {
 
     private final Charset CHARSET = StandardCharsets.UTF_8;
     private final int HEADER_LINES = 1;
-    private final int COLUMNS = 10;
+    private final int COLUMNS = 9;
     private final String DELIMITER = ",";
     private final int COLUMN_DATE = 0;
     private final String DATE_FORMAT = "yyyy-MM-dd";
     private final int COLUMN_DESCRIPTION = 4;
-    private final int COLUMN_AMOUNT = 6;
+    private final int COLUMN_AMOUNT = 5;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.PERIOD;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(
