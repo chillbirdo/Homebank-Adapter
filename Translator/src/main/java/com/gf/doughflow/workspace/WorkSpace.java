@@ -89,7 +89,7 @@ public class WorkSpace {
             for (File f : files) {
                 if (f.isFile()) {
                     try {
-                        FileUtils.moveFile(f, new File(account.getImportDirProcessed() + "/" + f.getName()));
+                        FileUtils.moveFile(f, new File(account.getImportDirProcessed() + "/" + f.getName() + "_" + sdf.format(new Date())));
                         logger.fine("Moved file '" + f.getAbsolutePath() + "' into '" + account.getImportDirProcessed() + "'");
                     } catch (IOException ex) {
                         logger.warning("Could not move file '" + f.getAbsolutePath() + "' into '" + account.getImportDirProcessed() + "'");
