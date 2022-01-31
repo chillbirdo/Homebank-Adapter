@@ -33,11 +33,11 @@ public class RevolutCsvImporterTest {
 
         Assertions.assertTrue(transactions.size() == 3);
         Assertions.assertEquals("19-05-2021", simpleDateFormat.format(transactions.get(0).getDate()));
-        Assertions.assertEquals("payment from charly mojerrez msc - ho ho", transactions.get(0).getDescription());
+        Assertions.assertEquals("ho ho", transactions.get(0).getDescription());
         Assertions.assertEquals( -5.01, transactions.get(0).getValue());
 
         Assertions.assertEquals("20-04-2021", simpleDateFormat.format(transactions.get(1).getDate()));
-        Assertions.assertEquals("payment from charly mojerrez msc - hey hey", transactions.get(1).getDescription());
+        Assertions.assertEquals("payment from charly mojerrez msc", transactions.get(1).getDescription());
         Assertions.assertEquals(-500.12, transactions.get(1).getValue());
 
         Assertions.assertEquals( "19-03-2021", simpleDateFormat.format(transactions.get(2).getDate()));

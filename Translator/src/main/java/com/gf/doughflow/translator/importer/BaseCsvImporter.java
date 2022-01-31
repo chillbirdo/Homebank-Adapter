@@ -50,13 +50,16 @@ public class BaseCsvImporter implements IImporter {
      */
     protected String convertDescription(String[] record) {
         String description = new String();
-        boolean firstTime = true;
+        boolean descriptionYetEmpty = true;
         for (Integer descriptionCol : csvImporterProperties.getDescriptionColumns()) {
-            if (!firstTime) {
+            if(record[descriptionCol].trim().isEmpty()){
+                continue;
+            }
+            if (!descriptionYetEmpty) {
                 description = description.concat(" - ");
             }
             description = description.concat(record[descriptionCol]);
-            firstTime = false;
+            descriptionYetEmpty = false;
         }
         return DescriptionConverter.replaceGermanLetters(DescriptionConverter.removeSpaces(DescriptionConverter.removeQuotes(description)));
     }
