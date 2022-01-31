@@ -12,10 +12,19 @@ public class CsvImporterProperties extends Properties {
     private Integer dateColumn;
     private Integer amountColumn;
     private AmountConverter.DigitPunctuation floatingPointCharacter;
-    private Integer descriptionColumn;
+
+    public Integer[] getDescriptionColumns() {
+        return descriptionColumns;
+    }
+
+    public void setDescriptionColumns(Integer[] descriptionColumns) {
+        this.descriptionColumns = descriptionColumns;
+    }
+
+    private Integer[] descriptionColumns;
     private String dateFormat;
 
-    public CsvImporterProperties(Integer headerLineAmount, Integer columnAmount, String separator, Integer dateColumn, String dateFormat, Integer amountColumn, AmountConverter.DigitPunctuation floatingPointPunctuation, Integer descriptionColumn){
+    public CsvImporterProperties(Integer headerLineAmount, Integer columnAmount, String separator, Integer dateColumn, String dateFormat, Integer amountColumn, AmountConverter.DigitPunctuation floatingPointPunctuation, Integer[] descriptionColumns){
         this.headerLineAmount = headerLineAmount;
         this.columnAmount = columnAmount;
         this.separator = separator;
@@ -23,7 +32,7 @@ public class CsvImporterProperties extends Properties {
         this.dateFormat = dateFormat;
         this.amountColumn = amountColumn;
         this.floatingPointCharacter = floatingPointPunctuation;
-        this.descriptionColumn = descriptionColumn;
+        this.descriptionColumns = descriptionColumns;
     }
 
     public void setHeaderLineAmount(Integer headerLineAmount) {
@@ -54,10 +63,6 @@ public class CsvImporterProperties extends Properties {
         this.amountColumn = amountColumn;
     }
 
-    public void setDescriptionColumn(Integer descriptionColumn) {
-        this.descriptionColumn = descriptionColumn;
-    }
-
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;
     }
@@ -76,10 +81,6 @@ public class CsvImporterProperties extends Properties {
 
     public Integer getAmountColumn() {
         return amountColumn;
-    }
-
-    public Integer getDescriptionColumn() {
-        return descriptionColumn;
     }
 
     public AmountConverter.DigitPunctuation getFloatingPointCharacter() {

@@ -16,12 +16,12 @@ public class SampleCustomCsvImporter extends BaseCsvImporter {
     private final String DELIMITER = ";";
     private final int COLUMN_DATE = 0;
     private final String DATE_FORMAT = "dd.MM.yyyy";
-    private final int COLUMN_DESCRIPTION = 4;
+    private final Integer[] COLUMNS_DESCRIPTION = new Integer[]{4};
     private final int COLUMN_AMOUNT = 7;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.COMMA;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(
-            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMN_DESCRIPTION);
+            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMNS_DESCRIPTION);
 
     public SampleCustomCsvImporter(int accountIdInWorkspace){
         super(accountIdInWorkspace);

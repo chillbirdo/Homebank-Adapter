@@ -37,7 +37,7 @@ public class FileReader {
                 hasNext = csvReader.peek() != null;
             } catch (Exception ex) {
                 Logger.getLogger(FileReader.class.getName()).log(Level.SEVERE,
-                        "invalid record in file '" + file.getAbsolutePath() + "' in line: " + (line != null ? line[importer.getCsvImporterProperties().getDescriptionColumn()] : lineCounter),
+                        "invalid record in file '" + file.getAbsolutePath() + " in line " + lineCounter,
                         ex);
             }
             lineCounter++;

@@ -24,7 +24,7 @@ public class BaseCsvImporter implements IImporter {
     public Transaction toTransaction(String[] record) throws Exception {
         Transaction transaction = new Transaction();
         transaction.setAccount(AccountRegistry.get(accountIdInWorkspace));
-        transaction.setDescription(convertDescription(record[csvImporterProperties.getDescriptionColumn()]));
+        transaction.setDescription(convertDescription(record));
         transaction.setValue(convertAmount(record[csvImporterProperties.getAmountColumn()]));
         transaction.setDate(convertDate(record[csvImporterProperties.getDateColumn()]));
         return transaction;
@@ -43,7 +43,21 @@ public class BaseCsvImporter implements IImporter {
         return AmountConverter.convertAmount(amountStr, csvImporterProperties.getFloatingPointCharacter());
     }
 
-    protected String convertDescription(String description) {
+    /**
+     * a description may consists of multiple concatenated columns
+     * @param record
+     * @return
+     */
+    protected String convertDescription(String[] record) {
+        String description = new String();
+        boolean firstTime = true;
+        for (Integer descriptionCol : csvImporterProperties.getDescriptionColumns()) {
+            if (!firstTime) {
+                description = description.concat(" - ");
+            }
+            description = description.concat(record[descriptionCol]);
+            firstTime = false;
+        }
         return DescriptionConverter.replaceGermanLetters(DescriptionConverter.removeSpaces(DescriptionConverter.removeQuotes(description)));
     }
 

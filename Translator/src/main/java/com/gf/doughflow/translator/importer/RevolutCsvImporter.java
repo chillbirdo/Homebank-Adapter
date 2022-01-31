@@ -13,12 +13,12 @@ public class RevolutCsvImporter extends BaseCsvImporter {
     private final String DELIMITER = ",";
     private final int COLUMN_DATE = 0;
     private final String DATE_FORMAT = "yyyy-MM-dd";
-    private final int COLUMN_DESCRIPTION = 7;
+    private final Integer[] COLUMNS_DESCRIPTION = new Integer[] {6, 7};
     private final int COLUMN_AMOUNT = 13;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.PERIOD;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(
-            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMN_DESCRIPTION);
+            HEADER_LINES, COLUMNS, DELIMITER, COLUMN_DATE, DATE_FORMAT, COLUMN_AMOUNT, FLOATINGPOINT_PUNCTUATION, COLUMNS_DESCRIPTION);
 
     public RevolutCsvImporter(int accountIdInWorkspace){
         super(accountIdInWorkspace);
