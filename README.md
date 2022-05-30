@@ -18,7 +18,7 @@ Banks supported:
 ## Features:
 
 - Import data from your bank's CSV files into homebank
-- Duplication detection, so it will not import the same transaction twice
+- Duplicate detection, so it will not import the same transaction twice
 - Support of differnt "Workspaces": Have a distinct workspace e.g. for your private transactions and another for your business transactions  
 - Automatic creation of backups, in case you do a mistake when importing
 
