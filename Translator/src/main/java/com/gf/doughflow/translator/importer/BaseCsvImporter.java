@@ -1,5 +1,6 @@
 package com.gf.doughflow.translator.importer;
 
+import com.gf.doughflow.translator.model.Account;
 import com.gf.doughflow.translator.model.Transaction;
 import com.gf.doughflow.translator.util.AmountConverter;
 import com.gf.doughflow.translator.util.DescriptionConverter;
@@ -22,11 +23,15 @@ public class BaseCsvImporter implements IImporter {
     }
 
     public Transaction toTransaction(String[] record) throws Exception {
+        Account account = AccountRegistry.get(accountIdInWorkspace);
         Transaction transaction = new Transaction();
-        transaction.setAccount(AccountRegistry.get(accountIdInWorkspace));
+        transaction.setDate(convertDate(record[csvImporterProperties.getDateColumn()]));
+        if(account.getIgnoreBefore() != null && transaction.getDate().before(account.getIgnoreBefore())){
+            return null;
+        }
+        transaction.setAccount(account);
         transaction.setDescription(convertDescription(record));
         transaction.setValue(convertAmount(record[csvImporterProperties.getAmountColumn()]));
-        transaction.setDate(convertDate(record[csvImporterProperties.getDateColumn()]));
         return transaction;
     }
 
