@@ -36,7 +36,7 @@ public class WorkSpace {
     private final File folderTemp;
     private final Map<Integer, Account> accounts;
 
-    private final SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmssSSS");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 
     public WorkSpace(String folderWork) {
         this.accounts = AccountRegistry.getAccounts();

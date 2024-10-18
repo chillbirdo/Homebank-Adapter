@@ -6,14 +6,16 @@ import com.gf.doughflow.translator.model.Transaction;
 import com.gf.doughflow.translator.util.DescriptionConverter;
 import com.gf.doughflow.translator.util.HomebankDate;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public class XhbExporter implements IExporter {
 
     private String hbVersion = "0.59999999999999998";
     private String title = "default";
-    private final DecimalFormat df = new DecimalFormat("##.##");
+    private final DecimalFormat df = new DecimalFormat("##.##", new DecimalFormatSymbols(Locale.US));
 
     private List<Category> categories;
     private Collection<Account> accounts;

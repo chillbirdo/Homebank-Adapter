@@ -2,14 +2,16 @@ package com.gf.doughflow.translator.exporter;
 
 import com.gf.doughflow.translator.model.Transaction;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class QifExporter implements IExporter {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private final String HEADER = "!Type:Bank";
-    private final DecimalFormat df = new DecimalFormat("##.##");
+    private final DecimalFormat df = new DecimalFormat("##.##", new DecimalFormatSymbols(Locale.US));
     
     @Override
     public String createHeader() {
