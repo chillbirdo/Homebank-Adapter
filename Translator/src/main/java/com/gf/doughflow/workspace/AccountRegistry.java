@@ -22,6 +22,7 @@ public class AccountRegistry {
     private static final String ID_DKB = "DKB";
     private static final String ID_DKB_CREDIT = "DKB_CREDIT";
     private static final String ID_REVOLUT = "REVOLUT";
+    private static final String ID_REVOLUT_PERSONAL = "REVOLUT_PERSONAL";
     private static final String ID_OTHER_EXPENSES = "OTHER_EXPENSES";
 
     private static final int ACCOUNT_BANK = 0;
@@ -54,6 +55,9 @@ public class AccountRegistry {
                     break;
                 case ID_REVOLUT:
                     importer = new RevolutCsvImporter(accountId);
+                    break;
+                case ID_REVOLUT_PERSONAL:
+                    importer = new RevolutPersonalCsvImporter(accountId);
                     break;
                 case ID_FLATEX:
                     importer = new FlatexCsvImporter(accountId);
