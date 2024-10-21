@@ -32,16 +32,16 @@ public class RevolutCsvImporterTest {
         List<Transaction> transactions = FileReader.importCsv(AccountRegistry.get(4).getImporter(), csv);
 
         Assertions.assertTrue(transactions.size() == 3);
-        Assertions.assertEquals("19-05-2021", simpleDateFormat.format(transactions.get(0).getDate()));
-        Assertions.assertEquals("ho ho", transactions.get(0).getDescription());
-        Assertions.assertEquals( -5.01, transactions.get(0).getValue());
+        Assertions.assertEquals("20-10-2024", simpleDateFormat.format(transactions.get(0).getDate()));
+        Assertions.assertEquals("to chillbird - hello - chillbird", transactions.get(0).getDescription());
+        Assertions.assertEquals( -50.51, transactions.get(0).getValue());
 
-        Assertions.assertEquals("20-04-2021", simpleDateFormat.format(transactions.get(1).getDate()));
-        Assertions.assertEquals("payment from charly mojerrez msc", transactions.get(1).getDescription());
-        Assertions.assertEquals(-500.12, transactions.get(1).getValue());
+        Assertions.assertEquals("15-10-2024", simpleDateFormat.format(transactions.get(1).getDate()));
+        Assertions.assertEquals("to chillbird - private stuff - chillbird", transactions.get(1).getDescription());
+        Assertions.assertEquals(-3000.11, transactions.get(1).getValue());
 
-        Assertions.assertEquals( "19-03-2021", simpleDateFormat.format(transactions.get(2).getDate()));
-        Assertions.assertEquals( "payment from charly mojerrez msc - nice nice", transactions.get(2).getDescription());
-        Assertions.assertEquals(5000, transactions.get(2).getValue());
+        Assertions.assertEquals( "09-10-2024", simpleDateFormat.format(transactions.get(2).getDate()));
+        Assertions.assertEquals( "to chillbird - gifts - chillbird", transactions.get(2).getDescription());
+        Assertions.assertEquals(1000, transactions.get(2).getValue());
     }
 }
