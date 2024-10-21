@@ -1,4 +1,4 @@
-"Datum","Empfänger","Kontonummer","Transaktionstyp","Verwendungszweck","Betrag (EUR)","Betrag (Fremdwährung)","Fremdwährung","Wechselkurs"
-"2019-07-02","Tsego Uru","AT23442343245112","Gutschrift","july","22.12","","",""
-"2019-07-03","Gilbert Fritz MSc","AT1991283721317","Gutschrift","abcd       äefg","0.01","","",""
-"2019-07-05","Elektrizitats- Aktiengesellschaft","AT621321321313231","Lastschrift","Strom - 1 )(----///23123+--=Qäü","-8.0","","",""
+"Booking Date","Value Date","Partner Name","Partner Iban",Type,"Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"
+2022-10-12,2022-10-12,"Miete+Strom+Internet",,"Debit Transfer","5x90 plus 50 nacken",Gesundheit,-500.12,,,
+2022-10-15,2022-10-15,"Miete+Strom+Internet",,"Debit Transfer","Schwangerschaft sachen bh",Gesundheit,55,,,
+2022-11-01,2022-11-01,"Miete+Strom+Internet",,"Debit Transfer","Vitamin schwanger",Gesundheit,-111140.00,,,
