@@ -32,14 +32,16 @@ public class N26CsvImporterTest {
         List<Transaction> transactions = FileReader.importCsv(AccountRegistry.get(2).getImporter(), csv);
 
         Assertions.assertTrue(transactions.size() == 3);
-        Assertions.assertEquals("02-07-2019", simpleDateFormat.format(transactions.get(0).getDate()));
-        Assertions.assertEquals("july", transactions.get(0).getDescription());
-        Assertions.assertEquals( 22.12, transactions.get(0).getValue());
-        Assertions.assertEquals("03-07-2019", simpleDateFormat.format(transactions.get(1).getDate()));
-        Assertions.assertEquals("abcd aeefg", transactions.get(1).getDescription());
-        Assertions.assertEquals(0.01, transactions.get(1).getValue());
-        Assertions.assertEquals( "05-07-2019", simpleDateFormat.format(transactions.get(2).getDate()));
-        Assertions.assertEquals( "strom - 1 )(----///23123+--=qaeue", transactions.get(2).getDescription());
-        Assertions.assertEquals(-8.0, transactions.get(2).getValue());
+        Assertions.assertEquals("12-10-2022", simpleDateFormat.format(transactions.get(0).getDate()));
+        Assertions.assertEquals("miete+strom+internet - 5x90 plus 50 nacken", transactions.get(0).getDescription());
+        Assertions.assertEquals( -500.12, transactions.get(0).getValue());
+
+        Assertions.assertEquals("15-10-2022", simpleDateFormat.format(transactions.get(1).getDate()));
+        Assertions.assertEquals("miete+strom+internet - schwangerschaft sachen bh", transactions.get(1).getDescription());
+        Assertions.assertEquals(55.00, transactions.get(1).getValue());
+
+        Assertions.assertEquals( "01-11-2022", simpleDateFormat.format(transactions.get(2).getDate()));
+        Assertions.assertEquals( "miete+strom+internet - vitamin schwanger", transactions.get(2).getDescription());
+        Assertions.assertEquals(-111140.0, transactions.get(2).getValue());
     }
 }
