@@ -7,14 +7,14 @@ import java.nio.charset.StandardCharsets;
 
 public class DKBCsvImporter extends BaseCsvImporter {
 
-    private final Charset CHARSET = StandardCharsets.ISO_8859_1;
-    private final int HEADER_LINES = 7;
-    private final int COLUMNS = 11;
-    private final String DELIMITER = ";";
+    private final Charset CHARSET = StandardCharsets.UTF_8;
+    private final int HEADER_LINES = 5;
+    private final int COLUMNS = 12;
+    private final String DELIMITER = ",";
     private final int COLUMN_DATE = 0;
-    private final String DATE_FORMAT = "dd.MM.yyyy";
-    private final Integer[] COLUMNS_DESCRIPTION = new Integer[]{3};
-    private final int COLUMN_AMOUNT = 7;
+    private final String DATE_FORMAT = "dd.MM.yy";
+    private final Integer[] COLUMNS_DESCRIPTION = new Integer[]{4,5};
+    private final int COLUMN_AMOUNT = 8;
     private final AmountConverter.DigitPunctuation FLOATINGPOINT_PUNCTUATION = AmountConverter.DigitPunctuation.COMMA;
 
     private final CsvImporterProperties csvImporterProperties = new CsvImporterProperties(

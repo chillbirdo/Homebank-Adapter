@@ -1,10 +1,8 @@
-"Kontonummer:";"DE34120300001072678871 / Girokonto";
-
-"Von:";"03.11.2018";
-"Bis:";"03.11.2021";
-"Kontostand vom 03.11.2021:";"100,00 EUR";
-
-"Buchungstag";"Wertstellung";"Buchungstext";"Auftraggeber / Beg�nstigter";"Verwendungszweck";"Kontonummer";"BLZ";"Betrag (EUR)";"Gl�ubiger-ID";"Mandatsreferenz";"Kundenreferenz";
-"25.10.2021";"25.10.2021";"Gutschrift";"Mustafa Einard MSc";"                       AWV-MELDEPFLICHT BEACHTEN  HOTLINE BUNDESBANK:        (0800) 1234-111";"AT511422384723820112";"BAWAATWWXXX";"103,16";"";"";"NOTPROVIDED";
-"22.10.2021";"22.10.2021";"Kartenzahlung/-abrechnung";"Millennium City//Wien/AT/1 / Landesbank Hessen-Thuringen Girozentrale";"2021-10-20T11:08      Debitk.0 2099-12";"DE675005324234324324";"HELADEFF";"-43,25";"";"";"FDE101ZUQSQ";
-"22.10.2021";"20.10.2021";"Geldautomat";"WIEN,HANDELSKAI 94-96,MC2//WIEN/AT/1 / Landesbank Hessen-Thuringen Girozentrale";"2021-10-20T15:05      Debitk.0 2099-12 Einsatzentgelt 10,00 EUR";"DE895005344586842352";"HELADEFF";"-40,00";"";"";"FDF1004A40C";
+﻿"Girokonto","DE34120300001072678871"
+""
+"Kontostand vom 21.10.2024:","437,04 €"
+""
+"Buchungsdatum","Wertstellung","Status","Zahlungspflichtige*r","Zahlungsempfänger*in","Verwendungszweck","Umsatztyp","IBAN","Betrag (€)","Gläubiger-ID","Mandatsreferenz","Kundenreferenz"
+"14.10.24","14.10.24","Gebucht","ISSUER","Amazon..Mktplce.EU.DE/8087","VISA Debitkartenumsatz","Ausgang","DE9687657754","-68,17","","","4846545545"
+"01.10.24","01.10.24","Gebucht","DKB AG","DKB AG","Abrechnung 30.09.2024 siehe Anlage Abrechnung 30.09.2024 Information zur Abrechnung Kontostand am 30.09.2024                                          505,21 + Abrechnungszeitraum vom 01.07.2024 bis 30.09.2024 Abrechnung 30.09.2024                                                0,00+ Sollzinssätze am 30.09.2024 10,5000 v.H. für eingeräumte Kontoüberziehung (aktuell eingeräumte Kontoüberziehung         100,00) 10,5000 v.H. für geduldete Kontoüberziehung über die eingeräumte Kontoüberziehung hinaus Kontostand/Rechnungsabschluss am 30.09.2024                       505,21 + Rechnungsnummer: 20240930-BY111-00210137491","Eingang","1072678871","0","","",""
+"16.09.24","16.09.24","Gebucht","ISSUER","Amazon","VISA Debitkartenumsatz","Ausgang","DE9676664545","40,00","","","485456"
